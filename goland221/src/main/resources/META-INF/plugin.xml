@@ -1,0 +1,64 @@
+
+<idea-plugin>
+    <id>com.autohome.ah_grpc_plugin</id>
+    <name>Autohome gRPC</name>
+    <vendor email="shicuining@autohome.com.cn" url="https://www.autohome.com.cn">汽车之家</vendor>
+    <description><![CDATA[
+
+    AUTOHOME GRPC TOOL <br>
+    管理gitlab大仓 <br>
+    <em>4 AUTOHOME</em>
+
+    ]]></description>
+    <depends>org.jetbrains.plugins.go</depends>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>idea.plugin.protoeditor</depends>
+    <depends>org.jetbrains.plugins.yaml</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup displayType="BALLOON" id="com.autohome.ah_grpc_plugin"></notificationGroup>
+        <toolWindow factoryClass="com.autohome.ah_grpc_plugin.factory.MainFactory" id="AUTOHOME gRPC 契约大仓" anchor="right" ></toolWindow>
+        <toolWindow factoryClass="com.autohome.ah_grpc_plugin.factory.BufToolWindow" id="autohomegrpcbuf" anchor="bottom" ></toolWindow>
+<!--        <postStartupActivity implementation="com.autohome.ah_grpc_plugin.activities.InitActivity"></postStartupActivity>-->
+<!--        <codeInsight.lineMarkerProvider implementationClass="com.autohome.ah_grpc_plugin.providers.ProtoImplementLineMarkerProvider" language="protobuf"></codeInsight.lineMarkerProvider>-->
+<!--        <codeInsight.lineMarkerProvider implementationClass="com.autohome.ah_grpc_plugin.providers.ImplToProtoLineMarkerProvider" language="go"></codeInsight.lineMarkerProvider>-->
+        <codeInsight.inlayProvider language="protobuf" implementationClass="com.autohome.ah_grpc_plugin.providers.ProtoInlayHintsProvider"></codeInsight.inlayProvider>
+        <projectService serviceImplementation="com.autohome.ah_grpc_plugin.platform.go.GoConfig" serviceInterface="com.autohome.ah_grpc_plugin.platform.PlatformConfig"></projectService>
+        <fileEditorProvider implementation="com.autohome.ah_grpc_plugin.providers.AuthProvider" ></fileEditorProvider>
+    </extensions>
+    <actions>
+        <action id="AutoHomeSeparatorBefore" class="com.intellij.openapi.actionSystem.Separator" text="分割线">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="WeighingNewGroup"/>
+        </action>
+        <action id="ProviderSupportGrpc" class="com.autohome.ah_grpc_plugin.actions.ProviderSupportGrpc" text="项目升级为Provider gRPC">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="AutoHomeSeparatorBefore"/>
+        </action>
+        <action id="ConsumerSupportGrpc" class="com.autohome.ah_grpc_plugin.actions.ConsumerSupportGrpc" text="项目升级为Consumer gRPC">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="AutoHomeSeparatorBefore"/>
+        </action>
+        <action id="CreateMessageFromJson" class="com.autohome.ah_grpc_plugin.actions.CreateMessageFromJson"
+                text="插入一个Json转换的Message" description="插入一个Json转换的Message">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="ShowIntentionsGroup"/>
+        </action>
+
+        <action id="InsertProtoService" class="com.autohome.ah_grpc_plugin.actions.AddProtoService"
+                text="新建一个Service" description="新建一个Service">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="CreateMessageFromJson"/>
+        </action>
+
+        <action id="InsertProtoMethod" class="com.autohome.ah_grpc_plugin.actions.AddProtoMethod"
+                text="插入新方法" description="插入新方法">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="InsertProtoService"/>
+        </action>
+
+        <action id="ResetMessageFieldIndex" class="com.autohome.ah_grpc_plugin.actions.ChangeProtoMessageIndex"
+                text="重排message属性索引" description="重排message属性索引">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="InsertProtoMethod"/>
+        </action>
+    </actions>
+    <projectListeners>
+        <listener class="com.autohome.ah_grpc_plugin.listeners.OpenProtoListener" topic="com.intellij.openapi.fileEditor.FileEditorManagerListener" />
+<!--        <listener class="com.autohome.ah_grpc_plugin.listeners.MyProjectManagerListener" topic="com.intellij.openapi.project.ProjectManagerListener"></listener>-->
+        <listener class="com.autohome.ah_grpc_plugin.listeners.TreeWindowManagerListener" topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"></listener>
+        <listener class="com.autohome.ah_grpc_plugin.listeners.MyBulkFileListener" topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"></listener>
+    </projectListeners>
+</idea-plugin>

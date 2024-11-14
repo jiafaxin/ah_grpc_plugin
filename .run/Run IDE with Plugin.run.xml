@@ -1,0 +1,29 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run Plugin" type="GradleRunConfiguration" factoryName="Gradle">
+    <log_file alias="idea.log" path="$PROJECT_DIR$/build/idea-sandbox/system/log/idea.log" />
+    <ExternalSystemSettings>
+      <option name="env">
+        <map>
+          <entry key="-Dfile.encoding" value="UTF-8" />
+        </map>
+      </option>
+      <option name="executionName" />
+      <option name="externalProjectPath" value="D:\java\ah_grpc_plugin\idea" />
+      <option name="externalSystemIdString" value="GRADLE" />
+      <option name="scriptParameters" value="--stacktrace -Dfile.encoding=UTF-8" />
+      <option name="taskDescriptions">
+        <list />
+      </option>
+      <option name="taskNames">
+        <list>
+          <option value="runIde" />
+        </list>
+      </option>
+      <option name="vmOptions" value="-Dfile.encoding=UTF-8" />
+    </ExternalSystemSettings>
+    <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+    <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+    <DebugAllEnabled>false</DebugAllEnabled>
+    <method v="2" />
+  </configuration>
+</component>
